@@ -16,24 +16,20 @@ export function useAudioEngine() {
 
   const playNote = useCallback(
     (noteId: string) => {
-      const engine = getEngine();
-      engine.init(); // safe to call inside pointer event
       const freq = NOTE_FREQUENCIES[noteId];
-      if (freq) engine.playNote(freq);
+      // playNote is async — void-call is intentional (fire-and-forget).
+      // ensureRunning() inside will await ctx.resume() before scheduling audio.
+      if (freq) void getEngine().playNote(freq);
     },
     [getEngine],
   );
 
   const playWrong = useCallback(() => {
-    const engine = getEngine();
-    engine.init();
-    engine.playWrong();
+    void getEngine().playWrong();
   }, [getEngine]);
 
   const playFanfare = useCallback(() => {
-    const engine = getEngine();
-    engine.init();
-    engine.playFanfare();
+    getEngine().playFanfare();
   }, [getEngine]);
 
   return { playNote, playWrong, playFanfare };
