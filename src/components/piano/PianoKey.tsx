@@ -18,14 +18,12 @@ export function PianoKey({ noteId, animState, onPress }: Props) {
   const isCorrect = animState === 'correct';
   const isWrong = animState === 'wrong';
 
-  // Background brightens on correct flash
   const bg = isCorrect ? color.lightHex : color.hex;
 
-  // Glow ring: pulse when active, big burst when correct
   const shadow = isActive
     ? `0 0 18px 5px ${color.hex}88, 0 0 36px 10px ${color.hex}44`
     : isCorrect
-      ? `0 0 32px 10px ${color.lightHex}99, 0 0 60px 18px ${color.hex}55`
+      ? `0 0 32px 10px ${color.lightHex}99`
       : 'none';
 
   const animClass = isActive
@@ -38,29 +36,22 @@ export function PianoKey({ noteId, animState, onPress }: Props) {
 
   return (
     <button
-      // onPointerDown fires on both mouse and touch with minimal latency
-      onPointerDown={e => {
-        e.preventDefault();
-        onPress(noteId);
-      }}
+      // onClick works universally on all mobile browsers as a trusted
+      // user gesture for AudioContext unlock. touch-manipulation removes
+      // the 300 ms tap delay so it feels as fast as pointerdown.
+      onClick={() => onPress(noteId)}
       style={{ backgroundColor: bg, boxShadow: shadow }}
       className={[
         'flex-1',
-        // Piano key shape: flat top, rounded bottom
         'rounded-t-sm rounded-b-2xl sm:rounded-b-3xl',
-        // Tall enough for easy finger tapping
         'min-h-[90px] sm:min-h-[130px]',
-        // Label at the bottom
         'flex items-end justify-center pb-3 sm:pb-4',
-        // Touch behaviour
-        'touch-none select-none cursor-pointer',
-        // Subtle border for depth
+        // touch-manipulation: no double-tap zoom, instant click
+        'touch-manipulation',
+        'select-none cursor-pointer',
         'border border-white/20',
-        // Smooth colour transitions
         'transition-colors duration-75',
-        // Active scale pop
         isActive ? 'scale-[1.03]' : '',
-        // Animation class
         animClass,
       ]
         .filter(Boolean)

@@ -11,11 +11,7 @@ interface Props {
 
 export function PianoKeyboard({ keyStates, onKeyPress }: Props) {
   return (
-    <div
-      className="flex flex-row w-full max-w-2xl mx-auto gap-[3px] sm:gap-[5px] px-2"
-      // Prevent touch scroll from interfering with key presses
-      onTouchMove={e => e.preventDefault()}
-    >
+    <div className="flex flex-row w-full max-w-2xl mx-auto gap-[3px] sm:gap-[5px] px-2">
       {NOTE_ORDER.map(noteId => (
         <PianoKey
           key={noteId}

@@ -6,7 +6,7 @@ import { useAudioEngine } from './useAudioEngine';
 import { useAnimationState } from './useAnimationState';
 
 interface Props {
-  song: Song | null; // null = free play
+  song: Song | null;
   onComplete: (score: GameScore) => void;
 }
 
@@ -14,11 +14,10 @@ export function useGameLogic({ song, onComplete }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mistakes, setMistakes] = useState(0);
 
-  const { playNote, playWrong, playFanfare } = useAudioEngine();
+  const { unlock, playNote, playWrong, playFanfare } = useAudioEngine();
   const { states: keyStates, setActive, setCorrect, setWrong, resetAll } =
     useAnimationState();
 
-  // Illuminate the first note when the song loads
   useEffect(() => {
     if (song?.notes.length) {
       setActive(song.notes[0]);
@@ -28,7 +27,6 @@ export function useGameLogic({ song, onComplete }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [song]);
 
-  // Illuminate the current note whenever the index advances
   useEffect(() => {
     if (song?.notes[currentIndex]) {
       setActive(song.notes[currentIndex]);
@@ -37,7 +35,10 @@ export function useGameLogic({ song, onComplete }: Props) {
 
   const handleKeyPress = useCallback(
     (noteId: string) => {
-      // ── Free play ──────────────────────────────────────────────────────
+      // unlock() MUST be called first — it runs synchronously within the
+      // user gesture and satisfies the browser's audio autoplay policy.
+      unlock();
+
       if (!song) {
         playNote(noteId);
         setCorrect(noteId, () => {});
@@ -47,7 +48,6 @@ export function useGameLogic({ song, onComplete }: Props) {
       const target = song.notes[currentIndex];
 
       if (noteId === target) {
-        // ── Correct ──────────────────────────────────────────────────────
         playNote(noteId);
         setCorrect(noteId, () => {
           const next = currentIndex + 1;
@@ -59,7 +59,6 @@ export function useGameLogic({ song, onComplete }: Props) {
           }
         });
       } else {
-        // ── Wrong ────────────────────────────────────────────────────────
         playWrong();
         setMistakes(m => m + 1);
         setWrong(noteId);
@@ -69,6 +68,7 @@ export function useGameLogic({ song, onComplete }: Props) {
       song,
       currentIndex,
       mistakes,
+      unlock,
       playNote,
       playWrong,
       playFanfare,
@@ -78,16 +78,13 @@ export function useGameLogic({ song, onComplete }: Props) {
     ],
   );
 
-  const upcomingNotes =
-    song ? song.notes.slice(currentIndex + 1, currentIndex + 4) : [];
-
   return {
     currentIndex,
     mistakes,
     keyStates,
     handleKeyPress,
-    currentNote: song ? song.notes[currentIndex] ?? null : null,
-    upcomingNotes,
+    currentNote: song ? (song.notes[currentIndex] ?? null) : null,
+    upcomingNotes: song ? song.notes.slice(currentIndex + 1, currentIndex + 4) : [],
     progress: song ? currentIndex / song.notes.length : 0,
   };
 }
