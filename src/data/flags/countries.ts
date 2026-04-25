@@ -1,0 +1,61 @@
+import type { Country } from '@/types';
+
+export const COUNTRIES: Country[] = [
+  // Tier 1: Very recognisable
+  { name: 'United States', code: 'us' },
+  { name: 'United Kingdom', code: 'gb' },
+  { name: 'France', code: 'fr' },
+  { name: 'Germany', code: 'de' },
+  { name: 'Italy', code: 'it' },
+  { name: 'Spain', code: 'es' },
+  { name: 'Japan', code: 'jp' },
+  { name: 'China', code: 'cn' },
+  { name: 'Brazil', code: 'br' },
+  { name: 'Canada', code: 'ca' },
+  { name: 'Australia', code: 'au' },
+  { name: 'India', code: 'in' },
+  { name: 'Russia', code: 'ru' },
+  { name: 'Mexico', code: 'mx' },
+  { name: 'South Africa', code: 'za' },
+
+  // Tier 2: Moderately recognisable
+  { name: 'Argentina', code: 'ar' },
+  { name: 'Greece', code: 'gr' },
+  { name: 'Portugal', code: 'pt' },
+  { name: 'Netherlands', code: 'nl' },
+  { name: 'Sweden', code: 'se' },
+  { name: 'Norway', code: 'no' },
+  { name: 'Switzerland', code: 'ch' },
+  { name: 'Turkey', code: 'tr' },
+  { name: 'Egypt', code: 'eg' },
+  { name: 'Nigeria', code: 'ng' },
+  { name: 'Saudi Arabia', code: 'sa' },
+  { name: 'South Korea', code: 'kr' },
+  { name: 'Thailand', code: 'th' },
+  { name: 'Indonesia', code: 'id' },
+  { name: 'Poland', code: 'pl' },
+
+  // Tier 3: Slightly harder
+  { name: 'Ukraine', code: 'ua' },
+  { name: 'Czech Republic', code: 'cz' },
+  { name: 'Romania', code: 'ro' },
+  { name: 'Hungary', code: 'hu' },
+  { name: 'Belgium', code: 'be' },
+  { name: 'Austria', code: 'at' },
+  { name: 'Denmark', code: 'dk' },
+  { name: 'Finland', code: 'fi' },
+  { name: 'New Zealand', code: 'nz' },
+  { name: 'Colombia', code: 'co' },
+
+  // Tier 4: More challenging
+  { name: 'Peru', code: 'pe' },
+  { name: 'Chile', code: 'cl' },
+  { name: 'Venezuela', code: 've' },
+  { name: 'Kenya', code: 'ke' },
+  { name: 'Morocco', code: 'ma' },
+  { name: 'Ethiopia', code: 'et' },
+  { name: 'Pakistan', code: 'pk' },
+  { name: 'Bangladesh', code: 'bd' },
+  { name: 'Philippines', code: 'ph' },
+  { name: 'Vietnam', code: 'vn' },
+];

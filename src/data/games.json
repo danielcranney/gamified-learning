@@ -1,0 +1,44 @@
+{
+  "games": [
+    {
+      "id": "flag-quiz",
+      "title": "Flag Quiz",
+      "description": "Can you match the flag to its country?",
+      "category": "Geography",
+      "emoji": "🌍",
+      "accent": "blue",
+      "available": true,
+      "questionCount": 10
+    },
+    {
+      "id": "times-tables",
+      "title": "Times Tables",
+      "description": "Practise your multiplication facts!",
+      "category": "Maths",
+      "emoji": "✖️",
+      "accent": "purple",
+      "available": false,
+      "questionCount": 10
+    },
+    {
+      "id": "animal-sounds",
+      "title": "Animal Sounds",
+      "description": "Match each animal to its sound.",
+      "category": "Science",
+      "emoji": "🦁",
+      "accent": "green",
+      "available": false,
+      "questionCount": 10
+    },
+    {
+      "id": "capital-cities",
+      "title": "Capital Cities",
+      "description": "Do you know the capital of each country?",
+      "category": "Geography",
+      "emoji": "🏛️",
+      "accent": "orange",
+      "available": false,
+      "questionCount": 10
+    }
+  ]
+}
